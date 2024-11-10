@@ -34,7 +34,7 @@ class PokemonAPI {
 
     private fun processJson(jsonResponse:String): ArrayList<Pokemon> {
 
-        var pokemons:ArrayList<Pokemon> = ArrayList<Pokemon>()
+        var pokemonArrayList:ArrayList<Pokemon> = ArrayList<Pokemon>()
 
         try {
 
@@ -47,14 +47,22 @@ class PokemonAPI {
 
                 pokemon.name = jsonPokemon.getString("name")
 
-                pokemons.add(pokemon)
+                val pokemonUrl = jsonPokemon.getString("url")
+                val pokemonUrlResponse = HttpUtils.get(pokemonUrl)
+                val jsonPokemonUrl = JSONObject(pokemonUrlResponse)
+
+                pokemon.id = jsonPokemonUrl.getInt("order")
+                pokemon.weight = jsonPokemonUrl.getDouble("weight")
+                pokemon.sprite = jsonPokemonUrl.getJSONObject("sprites").getString("front_default")
+
+                pokemonArrayList.add(pokemon)
 
             }
 
         } catch (e: JSONException) {
             println("failed: processJson")
         }
-        return pokemons
+        return pokemonArrayList
     }
 
 }

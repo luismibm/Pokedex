@@ -44,10 +44,9 @@ class FirstFragment : Fragment() {
         var pokemonArray:ArrayList<Pokemon> = ArrayList()
 
         // Adapter: Functions as a bridge between the ListView & pokemonArray/items
-        val adapter = ArrayAdapter(
+        val adapter = PokemonAdapter(
             requireContext(),
             R.layout.pokemon_row, // Layout for every Pokemon
-            R.id.tvPokemonName, // TextView ID on "pokemon_row.xml" to get the data
             pokemonArray
         )
 
