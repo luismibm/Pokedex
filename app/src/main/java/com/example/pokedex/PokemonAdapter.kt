@@ -1,7 +1,6 @@
 package com.example.pokedex
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,7 +23,6 @@ class PokemonAdapter(context: Context, resource: Int, objects: ArrayList<Pokemon
         Glide.with(context)
             .load(pokemon?.sprite)
             .into(pokemonSprite)
-        Log.d("XXX", pokemonName.text as String)
         return view
 
     }

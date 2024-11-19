@@ -1,10 +1,14 @@
 package com.example.pokedex
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -39,6 +43,36 @@ class FirstFragment : Fragment() {
 
         // ListView capture on First Fragment
         val lvPokemon: ListView = view.findViewById(R.id.lvPokemon)
+        refresh()
+
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_main, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        val id = item.itemId
+
+        if (id == R.id.action_refresh) {
+            refresh()
+            return true
+        }
+
+        if (id == R.id.action_settings) {
+            var i = Intent(requireContext(), SettingsActivity::class.java)
+            startActivity(i)
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
+
+    }
+
+    private fun refresh() {
 
         // Pokemon Array
         var pokemonArray:ArrayList<Pokemon> = ArrayList()
@@ -66,8 +100,8 @@ class FirstFragment : Fragment() {
 
         }
 
-        lvPokemon.adapter = adapter
-        super.onViewCreated(view, savedInstanceState)
+        binding.lvPokemon.adapter = adapter
+
     }
 
     override fun onDestroyView() {

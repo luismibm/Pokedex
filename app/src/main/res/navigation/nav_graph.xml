@@ -10,19 +10,14 @@
         android:name="com.example.pokedex.FirstFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
-
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_FirstFragment_to_pokemonDetails"
+            app:destination="@id/pokemonDetails" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.pokedex.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        android:id="@+id/pokemonDetails"
+        android:name="com.example.pokedex.PokemonDetails"
+        android:label="fragment_pokemon_details"
+        tools:layout="@layout/fragment_pokemon_details" />
 
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
 </navigation>
