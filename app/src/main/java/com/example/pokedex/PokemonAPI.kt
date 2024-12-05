@@ -56,7 +56,7 @@ class PokemonAPI {
                 pokemon.weight = jsonPokemonUrl.getDouble("weight")
                 pokemon.sprite = jsonPokemonUrl.getJSONObject("sprites").getString("front_default")
 
-                Log.d("XXX", pokemon.toString())
+                Log.d("API", pokemon.toString())
                 pokemonArrayList.add(pokemon)
 
             }

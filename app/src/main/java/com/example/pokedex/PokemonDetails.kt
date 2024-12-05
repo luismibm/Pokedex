@@ -1,5 +1,6 @@
 package com.example.pokedex
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -43,6 +44,7 @@ class PokemonDetails : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
@@ -50,22 +52,18 @@ class PokemonDetails : Fragment() {
         val args: Bundle? = arguments
 
         if(args != null){
-            val item:Pokemon? = args.getSerializable("item") as Pokemon?
-            if (item != null){
-                updateUi(item)
+            val pokemon:Pokemon? = args.getSerializable("item") as Pokemon?
+            if (pokemon != null){
+
+                val context = context as Context
+                Glide.with(context).load(pokemon.sprite).into(binding.ivPokemonSprite)
+                binding.tvPokemonName.text = pokemon.name
+                binding.tvPokemonWeight.text = pokemon.weight.toString() + " LBs"
+
             }
 
         }
 
-    }
-
-    private fun updateUi(pokemon: Pokemon){
-        binding.tvPokemonName.text = pokemon.name
-        val context: Context = context as Context
-
-        Glide.with(context).load(
-            pokemon.sprite
-        ).into(binding.ivPokemonSprite)
     }
 
     companion object {
