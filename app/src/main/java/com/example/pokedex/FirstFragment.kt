@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.example.pokedex.databinding.FragmentFirstBinding
 import java.util.concurrent.Executors
@@ -27,6 +28,12 @@ class FirstFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+
+    // Pokemon Array
+    private var pokemonArray:ArrayList<Pokemon> = ArrayList()
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +51,22 @@ class FirstFragment : Fragment() {
         // ListView capture on First Fragment
         val lvPokemon: ListView = view.findViewById(R.id.lvPokemon)
         refresh()
+
+        val adapter = PokemonAdapter (
+            requireContext(),
+            R.layout.pokemon_row,
+            pokemonArray
+        )
+
+
+        lvPokemon.setOnItemClickListener{adapter,_,position,_ ->
+            val pokemon = adapter.getItemAtPosition(position) as Pokemon
+            val args = Bundle().apply {
+                putSerializable("item", pokemon)
+            }
+            NavHostFragment.findNavController(this).navigate(R.id.action_FirstFragment_to_pokemonDetails, args)
+        }
+
 
         super.onViewCreated(view, savedInstanceState)
     }
@@ -73,9 +96,6 @@ class FirstFragment : Fragment() {
     }
 
     private fun refresh() {
-
-        // Pokemon Array
-        var pokemonArray:ArrayList<Pokemon> = ArrayList()
 
         // Adapter: Functions as a bridge between the ListView & pokemonArray/items
         val adapter = PokemonAdapter(
@@ -108,4 +128,5 @@ class FirstFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }

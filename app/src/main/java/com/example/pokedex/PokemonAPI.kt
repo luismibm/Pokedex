@@ -1,6 +1,7 @@
 package com.example.pokedex
 
 import android.net.Uri
+import android.util.Log
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -55,6 +56,7 @@ class PokemonAPI {
                 pokemon.weight = jsonPokemonUrl.getDouble("weight")
                 pokemon.sprite = jsonPokemonUrl.getJSONObject("sprites").getString("front_default")
 
+                Log.d("XXX", pokemon.toString())
                 pokemonArrayList.add(pokemon)
 
             }

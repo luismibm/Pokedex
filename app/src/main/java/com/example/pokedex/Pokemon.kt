@@ -1,14 +1,16 @@
 package com.example.pokedex
 
-class Pokemon {
+import java.io.Serializable
+
+class Pokemon : Serializable {
 
     var id:Int = 0
     var name:String = ""
     var sprite:String = ""
     var weight:Double = 0.0
-
     override fun toString(): String {
-        return name
+        return "Pokemon(id=$id, name='$name', sprite='$sprite', weight=$weight)"
     }
+
 
 }

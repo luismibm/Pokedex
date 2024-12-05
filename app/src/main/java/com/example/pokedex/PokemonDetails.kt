@@ -1,10 +1,13 @@
 package com.example.pokedex
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
+import com.example.pokedex.databinding.FragmentPokemonDetailsBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,6 +23,9 @@ class PokemonDetails : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private var _binding: FragmentPokemonDetailsBinding? = null
+    private val binding get() = _binding!!
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +39,33 @@ class PokemonDetails : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pokemon_details, container, false)
+        _binding = FragmentPokemonDetailsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        super.onViewCreated(view, savedInstanceState)
+
+        val args: Bundle? = arguments
+
+        if(args != null){
+            val item:Pokemon? = args.getSerializable("item") as Pokemon?
+            if (item != null){
+                updateUi(item)
+            }
+
+        }
+
+    }
+
+    private fun updateUi(pokemon: Pokemon){
+        binding.tvPokemonName.text = pokemon.name
+        val context: Context = context as Context
+
+        Glide.with(context).load(
+            pokemon.sprite
+        ).into(binding.ivPokemonSprite)
     }
 
     companion object {
